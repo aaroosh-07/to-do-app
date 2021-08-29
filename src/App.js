@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import react from "react";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <List />
     </div>
   );
 }
 
+class List extends react.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      count: 0,
+      list: [],
+    }
+  };
+  addNewItem(text) {
+    const items = this.state.list.split();
+    let count;
+    count = this.state.count + 1;
+    const newItem = {
+      id: this.state.count,
+      task: text
+    };
+    items.append(newItem);
+    this.setState({
+      count: count,
+      list: items
+    });
+  }
+  render(){
+    return (
+      <div>
+        <h1>new list</h1>
+        <input type="text" placeholder="type your task here"/>
+      </div>
+    );
+  }
+};
 export default App;
