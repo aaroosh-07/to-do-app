@@ -18,7 +18,8 @@ class List extends react.Component {
     }
   };
 
-  addNewItem() {
+  addNewItem(e) {
+    e.preventDefault();
     if(this.state.newItem === ""){
       return;
     }
@@ -38,6 +39,15 @@ class List extends react.Component {
     });
   }
 
+  ondelete(index) {
+    console.log("this element is deleted" + index);
+    console.log(index);
+    const list = this.state.list;
+    const del = list[index];
+    const newList = list.filter((item)=>item!==del);
+    this.setState({list: newList});
+  }
+
   render(){
     return (
       <div>
@@ -47,13 +57,18 @@ class List extends react.Component {
          onChange={(e)=>this.updateItem(e.target.value)}
         />
         <button 
-          onClick={()=>this.addNewItem()}
+          onClick={(e)=>this.addNewItem(e)}
         >
         Add
         </button>
         <ul>
-          {this.state.list.map((item)=>{
-            return (<li>{item}</li>);
+          {this.state.list.map((item,index)=>{
+            console.log("this"+index);
+            return (<li key={index}>
+            {item}
+            <button onClick={()=>this.ondelete(index)}>X</button>
+            </li>
+            );
           })}
         </ul>
       </div>
